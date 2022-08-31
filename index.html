@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="domBox" style="width: 100px;">
+        iiii
+        <div class="oo">
+            123
+            <span>ppp</span>
+        </div>
+        <div>12333</div>
+    </div>
+    <script>
+        function dom2json() {
+                // 获取到dom对象
+                const domBox = document.querySelector("#domBox")
+
+
+                function domJson(dom) {
+                    const obj = {
+                        tag: getTagName(dom)
+                    }
+                    // dom节点为元素element,nodeType节点类型为1
+                    if (dom.nodeType == 1) {
+                        const attrs = getTagAttrs(dom)
+                        if (attrs) obj.attributes = attrs;
+                        // 筛选出nodeType不为3且文本内容不为空的子DOM节点，并进行递归
+                        obj.children = Array.from(dom.childNodes).filter(child => {
+                            return !(child.nodeType == 3 && !child.textContent.trim())
+                        }).map(child => domJson(child))
+                        return obj
+                    }
+                    // dom节点为文本类型， nodeType节点类型为3
+                    if (dom.nodeType == 3) {
+                        obj.content = texthandle(dom.textContent)
+                        return obj
+                    }
+                }
+
+                // 去除空白符
+                function texthandle(str) {
+                    return str.replace(/\s/g, '')
+                }
+
+                // 获取到节点的标签名，注意需要转换为小写
+                function getTagName(dom) {
+                    return dom.nodeName.toLocaleLowerCase().replace('#', '')
+                }
+
+                // 获取节点的属性对象
+                function getTagAttrs(dom) {
+                    // 获取到属性数组
+                    const attr = Array.from(dom.attributes)
+                    const obj = {}
+                    attr.forEach(atr => obj[atr.name] = atr.value)
+                    return attr.length ? obj : null;
+                }
+
+                return domJson(domBox)
+            }
+            const a = dom2json()
+            function attr(a){
+                // console.log(a.attributes);
+                // console.log(a.tag);
+                // console.log(a.children);
+                var div = document.createElement(a.tag)
+                if(a.children){
+                    bild(a.children, div)
+                }
+                document.body.appendChild(div)
+            }
+            attr(a)
+            function bild(bb,cc){
+                console.log(bb);
+                console.log(cc);
+                bb.forEach((item,index)=>{
+                    console.log(item);
+                    var child = document.createElement(item.tag)
+                    if(item.content){
+                        child.innerHTML = item.content
+                    }
+                    cc.appendChild(child)
+                    if(item.children){
+                        bild(item.children, child)
+                    }
+                })
+            }
+    </script>
+    
+</body>
+</html>
