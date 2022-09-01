@@ -1,0 +1,89 @@
+{
+    "name": "webpack_one",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "npm run lint-eslint && npm run lint-stylelint",
+        "lint-eslint": "eslint -c .eslintrc.js --ext .ts,.tsx,.js src",
+        "lint-stylelint": "stylelint --config .stylelintrc.js src/**/*.{less,css,scss}",
+        "start": "cross-env NODE_ENV=development webpack-dev-server --config ./webpack/scripts/webpack.dev.js",
+        "build": "cross-env NODE_ENV=production webpack --config ./webpack/scripts/webpack.prod.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.18.13",
+        "@babel/plugin-transform-runtime": "^7.18.10",
+        "@babel/preset-env": "^7.18.10",
+        "@babel/preset-react": "^7.18.6",
+        "@babel/preset-typescript": "^7.18.6",
+        "@commitlint/cli": "^17.0.3",
+        "@commitlint/config-conventional": "^17.0.3",
+        "@types/react": "^18.0.17",
+        "@types/react-dom": "^18.0.6",
+        "@types/webpack-env": "^1.18.0",
+        "@typescript-eslint/eslint-plugin": "^5.33.1",
+        "@typescript-eslint/parser": "^5.33.1",
+        "babel-loader": "^8.2.5",
+        "copy-webpack-plugin": "^11.0.0",
+        "cross-env": "^7.0.3",
+        "css-loader": "^6.7.1",
+        "css-minimizer-webpack-plugin": "^4.0.0",
+        "eslint": "^8.22.0",
+        "eslint-import-resolver-typescript": "^3.5.0",
+        "eslint-plugin-react": "^7.30.1",
+        "fork-ts-checker-webpack-plugin": "^7.2.13",
+        "friendly-errors-webpack-plugin": "^1.7.0",
+        "glob": "^8.0.3",
+        "html-webpack-plugin": "^5.5.0",
+        "husky": "^8.0.1",
+        "less": "^4.1.3",
+        "less-loader": "^11.0.0",
+        "lint-staged": "^13.0.3",
+        "mini-css-extract-plugin": "^2.6.1",
+        "postcss": "^8.4.16",
+        "postcss-loader": "^7.0.1",
+        "postcss-preset-env": "^7.8.0",
+        "prettier": "^2.7.1",
+        "purgecss-webpack-plugin": "^4.1.3",
+        "run-success-icon": "^1.0.9",
+        "style-loader": "^3.3.1",
+        "stylelint": "^14.10.0",
+        "stylelint-config-rational-order": "^0.1.2",
+        "stylelint-config-standard": "^27.0.0",
+        "stylelint-declaration-block-no-ignored-properties": "^2.5.0",
+        "stylelint-order": "^5.0.0",
+        "webpack": "^5.74.0",
+        "webpack-cli": "^4.10.0",
+        "webpack-dev-server": "^4.10.0",
+        "webpack-merge": "^5.8.0",
+        "webpackbar": "^5.0.2"
+    },
+    "lint-staged": {
+        "*.{ts,tsx,js}": [
+            "eslint --config .eslintrc.js"
+        ],
+        "*.{css,less,scss}": [
+            "stylelint --config .stylelintrc.js"
+        ],
+        "*.{ts,tsx,js,json,html,yml,css,less,scss,md}": [
+            "prettier --write"
+        ]
+    },
+    "browserslist": [
+        "last 2 version",
+        ">1%",
+        "not dead"
+    ],
+    "dependencies": {
+        "@babel/runtime-corejs3": "^7.18.9",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    }
+}
