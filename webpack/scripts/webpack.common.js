@@ -138,8 +138,8 @@ module.exports = {
                   },
         }),
         new MiniCssExtractPlugin({
-            filename: 'css/[name].[contenthash:8].css',
-            chunkFilename: 'css/[name].[contenthash:8].css',
+            filename: 'css/[name].css',
+            chunkFilename: 'css/[name].css',
             ignoreOrder: false,
         }),
         new CssMinimizerPlugin(),

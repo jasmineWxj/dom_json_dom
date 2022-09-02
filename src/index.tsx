@@ -10,6 +10,7 @@ import Attr from './compontent/attr';
 // if (module && module.hot) {
 //     module.hot.accept();
 // }
+module?.hot?.accept();
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <React.StrictMode>
