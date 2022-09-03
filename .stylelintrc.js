@@ -12,6 +12,7 @@ module.exports = {
         indentation: 4,
         'annotation-no-unknown': true,
         'block-no-empty': true,
+        'string-quotes': 'single',
     },
     ignoreFiles: ['node_modules/**/*', 'build/**/*'],
 };

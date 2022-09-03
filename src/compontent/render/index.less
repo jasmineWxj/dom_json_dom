@@ -1,11 +1,30 @@
 .render {
     display: flex;
     flex: 1;
+    width: 20px;
     height: 100%;
-    border: 1px solid gold;
 
     .render-box {
+        position: absolute;
+        top: 40px;
+        left: 30px;
+        z-index: 2;
+        width: 345px;
+        height: 650px;
+    }
+}
+
+.render-con {
+    position: relative;
+    width: 390px;
+    height: 730px;
+    margin: 10px auto;
+
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 400px;
-        height: 700px;
+        height: 722px;
     }
 }
