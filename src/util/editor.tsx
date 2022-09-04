@@ -44,13 +44,26 @@ registerConfig.register({
     label: '盒子',
     preview: () => <div className="box-preview"></div>,
     render: (item?: any, index?: any) => {
-        console.log(item, 'pppp');
+        if (item.length >= 1) {
+            console.log(item, '0000000');
 
-        if (item) {
-            return <div className="box-rander">{registerConfig.componentMap[item.key].render()}</div>;
+            return (
+                <div className="box-rander" data-num={item.num} data-index={index}>
+                    {DOm(item, index)}
+                </div>
+            );
         }
-        return <div className="box-rander"></div>;
+        return <div className="box-rander" data-num={item.num} data-index={index}></div>;
     },
     key: 'box',
     childer: true,
 });
+const DOm = (item: any, indexs: any): any => {
+    return item.map((item: any, index: number) => {
+        return (
+            <div key={index} className="aaa" data-num={item.num} data-index={indexs}>
+                {registerConfig.componentMap[item.key].render(item?.childs, indexs)}
+            </div>
+        );
+    });
+};

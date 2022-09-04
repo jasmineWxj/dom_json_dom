@@ -1,10 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './index.less';
 import iphone from '@/img/images.png';
 function Render(props: any, ref: any) {
     const { compon, esta, block } = props;
     const [clcck, useblcck] = useState(block);
-    const [num, useNum] = useState(0);
+    const [targeter, useTargeter] = useState(true);
+    const numRef = useRef(-1);
+    const [domlist, useDomlist] = useState(0);
     const dragenter = (e: any) => {
         e.dataTransfer.dropEffect = 'move'; // 移动标识
     };
@@ -17,35 +19,43 @@ function Render(props: any, ref: any) {
     };
 
     const onDrop = (e: any) => {
+        if (!targeter) return;
         useblcck([
             ...clcck,
             {
                 key: compon.key,
-                num: num + 1,
-                child: {
-                    key: 'text',
-                    num: num + 1,
-                },
+                num: numRef.current + 1,
+                childs: [],
             },
         ]);
-        useNum(num + 1);
-        console.log(esta.componentMap);
+
+        numRef.current += 1;
+        e.preventDefault();
     };
 
-    const ChildOnenter = () => {
-        console.log(111);
+    const ChildOnenter = (e: any) => {
+        e.dataTransfer.dropEffect = 'move'; // 移动标识
     };
 
-    const ChildOnover = () => {
-        console.log(111);
+    const ChildOnover = (e: any) => {
+        if (e.target.getAttribute('class') == 'box-rander') {
+            useTargeter(false);
+        }
+        e.preventDefault();
     };
 
-    const ChildOnleave = () => {
-        console.log(111);
+    const ChildOnleave = (e: any) => {
+        e.dataTransfer.dropEffect = 'none'; // 移动标识
     };
-
-    const ChildOndrop = () => {
-        // console.log(clcck, 'clcck');
+    const ChildOndrop = (e: any, num: number) => {
+        clcck[e.target.getAttribute('data-index')]['childs'].push({
+            key: compon.key,
+            num: numRef.current + 1,
+            childs: [],
+        });
+        numRef.current += 1;
+        console.log(numRef.current);
+        useTargeter(true);
     };
 
     return (
@@ -60,18 +70,16 @@ function Render(props: any, ref: any) {
                     onDrop={(e) => onDrop(e)}
                 >
                     {clcck.map((item: any, index: number) => {
-                        // console.log(item, 'item');
-                        // console.log(esta.componentMap[item.key], 'itemkey');
                         if (esta.componentMap[item.key].childer) {
                             return (
                                 <div
                                     key={index}
-                                    onDragEnter={ChildOnenter}
-                                    onDragOver={ChildOnover}
-                                    onDragLeave={ChildOnleave}
-                                    onDrop={ChildOndrop}
+                                    onDragEnter={(e) => ChildOnenter(e)}
+                                    onDragOver={(e) => ChildOnover(e)}
+                                    onDragLeave={(e) => ChildOnleave(e)}
+                                    onDrop={(e) => ChildOndrop(e, item.num)}
                                 >
-                                    {esta.componentMap[item.key].render(item.child, index)}
+                                    {esta.componentMap[item.key].render(item.childs, index)}
                                 </div>
                             );
                         }

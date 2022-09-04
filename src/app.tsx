@@ -32,7 +32,7 @@ function App() {
         // dragover 在目标元素经过，必阻止默认行为，否则不能出发drop
         // dragleave 离开元素的时候，需要添加一个禁用表示
         // drop 松手的时候根据拖拽的组件， 添加一个组件
-        console.log(domRef.current);
+        // console.log(domRef.current);
         domRef.current.addEventListener('dragenter', dragenter(e));
         // domRef.current.addEventListener('dragover', dragover(e));
         // domRef.current.addEventListener('dragleave', dragleave(e));
